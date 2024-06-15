@@ -7,31 +7,38 @@ namespace IndieGameDeveloper
     [CreateAssetMenu(fileName = "Movement Ability", menuName = "IndieGameDev/New Ability/Idle")]
     public class Idle : ObjectBase
     {
-        public override void OnEnterAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-
+            animator.SetBool(TransitionParameter.Jump.ToString(), false);
+            animator.SetBool(TransitionParameter.Grounded.ToString(), true);
         }
 
-        public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (VirtualInputManager.Instance.MoveRight && VirtualInputManager.Instance.MoveLeft)
+
+            if (characterControl.MoveRight && characterControl.MoveLeft)
             {
                 animator.SetBool(TransitionParameter.Move.ToString(), false);
                 return;
             }
 
-            if (VirtualInputManager.Instance.MoveRight)
+            if (characterControl.Jump)
+            {
+                animator.SetBool(TransitionParameter.Jump.ToString(), true);
+            }
+
+            if (characterControl.MoveRight)
             {
                 animator.SetBool(TransitionParameter.Move.ToString(), true);
             }
 
-            if (VirtualInputManager.Instance.MoveLeft)
+            if (characterControl.MoveLeft)
             {
                 animator.SetBool(TransitionParameter.Move.ToString(), true);
             }
         }
 
-        public override void OnExitAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnExitAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
 
         }

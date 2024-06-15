@@ -7,43 +7,73 @@ namespace IndieGameDeveloper
     [CreateAssetMenu(fileName = "Movement Ability", menuName = "IndieGameDev/New Ability/MoveForward")]
     public class MoveForward : ObjectBase
     {
+        public AnimationCurve SpeedGraph;
         public float movementSpeed;
+        public float BlockDistance;
 
-        public override void OnEnterAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-
+            animator.SetBool(TransitionParameter.Grounded.ToString(), true);
         }
 
-        public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (VirtualInputManager.Instance.MoveRight && VirtualInputManager.Instance.MoveLeft)
+            if (characterControl.Jump)
+            {
+                animator.SetBool(TransitionParameter.Jump.ToString(), true);
+            }
+
+            if (characterControl.MoveRight && characterControl.MoveLeft)
             {
                 animator.SetBool(TransitionParameter.Move.ToString(), false);
                 return;
             }
 
-            if (!VirtualInputManager.Instance.MoveRight && !VirtualInputManager.Instance.MoveLeft)
+            if (!characterControl.MoveRight && !characterControl.MoveLeft)
             {
                 animator.SetBool(TransitionParameter.Move.ToString(), false);
                 return;
             }
 
-            if (VirtualInputManager.Instance.MoveRight)
+            if (characterControl.MoveRight)
             {
-                characterControl.transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+                if (!CheckFront(characterControl))
+                {
+                    characterControl.transform.Translate(Vector3.forward * movementSpeed * SpeedGraph.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
+                }
                 characterControl.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
 
-            if (VirtualInputManager.Instance.MoveLeft)
+            if (characterControl.MoveLeft)
             {
-                characterControl.transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+                if (!CheckFront(characterControl))
+                {
+                    characterControl.transform.Translate(Vector3.forward * movementSpeed * SpeedGraph.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
+                }
                 characterControl.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
 
-        public override void OnExitAnimation(CharacterControl characterControl, Animator animator)
+        public override void OnExitAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
 
+        }
+
+        bool CheckFront(CharacterControl characterControl)
+        {
+            RaycastHit hit;
+
+            foreach (GameObject obj in characterControl.FrontSphereList)
+            {
+                Debug.DrawRay(obj.transform.position, obj.transform.forward * BlockDistance, Color.red);
+
+                if (Physics.Raycast(obj.transform.position, obj.transform.forward, out hit, BlockDistance))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

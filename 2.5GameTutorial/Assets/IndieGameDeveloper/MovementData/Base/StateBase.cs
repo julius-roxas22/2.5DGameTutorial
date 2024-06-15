@@ -15,7 +15,7 @@ namespace IndieGameDeveloper
             CharacterControl characterControl = GetPlayerController(animator);
             foreach (ObjectBase data in allData)
             {
-                data.OnEnterAnimation(characterControl, animator);
+                data.OnEnterAnimation(characterControl, animator, stateInfo);
             }
         }
 
@@ -24,7 +24,7 @@ namespace IndieGameDeveloper
             CharacterControl characterControl = GetPlayerController(animator);
             foreach (ObjectBase data in allData)
             {
-                data.OnUpdateAnimation(characterControl, animator);
+                data.OnUpdateAnimation(characterControl, animator, stateInfo);
             }
         }
 
@@ -33,7 +33,7 @@ namespace IndieGameDeveloper
             CharacterControl characterControl = GetPlayerController(animator);
             foreach (ObjectBase data in allData)
             {
-                data.OnExitAnimation(characterControl, animator);
+                data.OnExitAnimation(characterControl, animator, stateInfo);
             }
         }
 
