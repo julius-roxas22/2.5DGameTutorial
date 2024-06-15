@@ -39,9 +39,8 @@ namespace IndieGameDeveloper
 
         bool IsGrounded(CharacterControl characterControl)
         {
-            RaycastHit hit;
 
-            if (characterControl.GetRigidbody.velocity.y <= 0f && characterControl.GetRigidbody.velocity.y > -0.001f)
+            if (characterControl.GetRigidbody.velocity.y > -0.001f && characterControl.GetRigidbody.velocity.y <= 0f)
             {
                 return true;
             }
@@ -51,7 +50,7 @@ namespace IndieGameDeveloper
                 foreach (GameObject obj in characterControl.BottomSphereList)
                 {
                     Debug.DrawRay(obj.transform.position, -Vector3.up * groundDistance, Color.red);
-
+                    RaycastHit hit;
                     if (Physics.Raycast(obj.transform.position, -Vector3.up, out hit, groundDistance))
                     {
                         return true;

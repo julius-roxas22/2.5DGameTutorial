@@ -10,7 +10,6 @@ namespace IndieGameDeveloper
         public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
             animator.SetBool(TransitionParameter.Jump.ToString(), false);
-            animator.SetBool(TransitionParameter.Grounded.ToString(), true);
         }
 
         public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)

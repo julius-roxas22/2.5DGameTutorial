@@ -23,6 +23,8 @@ namespace IndieGameDeveloper
         public GameObject SpherePrefab;
         public List<GameObject> FrontSphereList = new List<GameObject>();
         public List<GameObject> BottomSphereList = new List<GameObject>();
+        public float GravityMultiplier;
+        public float PullMultiplier;
 
         private void Awake()
         {
@@ -47,6 +49,19 @@ namespace IndieGameDeveloper
 
             float horizontalSection = (bottomBack.transform.position - bottomFrontSpheres.transform.position).magnitude / 5f;
             SphereEdge(bottomBack, Vector3.forward, horizontalSection, 4, BottomSphereList);
+        }
+
+        private void FixedUpdate()
+        {
+            if (GetRigidbody.velocity.y < 0f)
+            {
+                GetRigidbody.velocity -= (Vector3.up * GravityMultiplier);
+            }
+
+            if (GetRigidbody.velocity.y > 0f && !Jump)
+            {
+                GetRigidbody.velocity -= (Vector3.up * PullMultiplier);
+            }
         }
 
         private void SphereEdge(GameObject objStartPosition, Vector3 directions, float section, int iteration, List<GameObject> sphereList)
