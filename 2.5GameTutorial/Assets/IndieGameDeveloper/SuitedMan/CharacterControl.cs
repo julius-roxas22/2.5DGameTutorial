@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace IndieGameDeveloper
 {
@@ -9,6 +10,7 @@ namespace IndieGameDeveloper
         Jump,
         ForceTransition,
         Grounded,
+        Attack,
     }
 
 
@@ -20,13 +22,64 @@ namespace IndieGameDeveloper
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
+        public bool Attack;
+
         public GameObject SpherePrefab;
         public List<GameObject> FrontSphereList = new List<GameObject>();
         public List<GameObject> BottomSphereList = new List<GameObject>();
         public float GravityMultiplier;
         public float PullMultiplier;
+        public List<Collider> RagdollParts = new List<Collider>();
 
         private void Awake()
+        {
+            SetRagdollParts();
+            SetColliderSphere();
+        }
+
+        private void SetRagdollParts()
+        {
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+
+            foreach (Collider col in colliders)
+            {
+                if (col.gameObject != gameObject)
+                {
+                    col.isTrigger = true;
+                    RagdollParts.Add(col);
+                }
+            }
+        }
+
+        //private IEnumerator Start()
+        //{
+        //    yield return new WaitForSeconds(5f);
+        //    GetRigidbody.AddForce(300f * Vector3.up);
+        //    yield return new WaitForSeconds(0.5f);
+        //    TurnOnRagdoll();
+        //}
+
+        public void Move(float movementSpeed, float SpeedGraph)
+        {
+            transform.Translate(Vector3.forward * movementSpeed * SpeedGraph * Time.deltaTime);
+        }
+
+        public void TurnOnRagdoll()
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            GetRigidbody.velocity = Vector3.zero;
+            GetRigidbody.useGravity = false;
+            animator.enabled = false;
+            animator.avatar = null;
+
+            foreach (Collider col in RagdollParts)
+            {
+                col.isTrigger = false;
+                col.attachedRigidbody.velocity = Vector3.zero;
+            }
+        }
+
+        private void SetColliderSphere()
         {
             BoxCollider boxCollider = GetComponent<BoxCollider>();
 

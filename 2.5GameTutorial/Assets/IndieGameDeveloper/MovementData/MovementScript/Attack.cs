@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace IndieGameDeveloper
 {
-    [CreateAssetMenu(fileName = "Movement Ability", menuName = "IndieGameDev/New Ability/Landing")]
-    public class Landing : ObjectBase
+    [CreateAssetMenu(fileName = "Movement Ability", menuName = "IndieGameDev/New Ability/Attack")]
+    public class Attack : ObjectBase
     {
         public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-            animator.SetBool(TransitionParameter.Jump.ToString(), false);
-            animator.SetBool(TransitionParameter.Move.ToString(), false);
+            animator.SetBool(TransitionParameter.Attack.ToString(), false);
         }
 
         public override void OnUpdateAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
@@ -22,6 +21,7 @@ namespace IndieGameDeveloper
         {
 
         }
-    }
 
+    }
 }
+
