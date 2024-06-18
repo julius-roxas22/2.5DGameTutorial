@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8648383643e0c5242b6ad102215ec4b5, type: 3}
   m_Name: LeadJab_Attack
   m_EditorClassIdentifier: 
-  SpeedGraph:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  movementSpeed: 0
-  BlockDistance: 0
+  StartAttackTime: 0.18
+  EndTimeAttack: 0.5
+  CollingNames:
+  - LeftHand
+  MustCollide: 1
+  IsFacingAttacker: 1
+  AttackRange: 0
+  Maxhits: 1
+  DeathAnimations:
+  - {fileID: 9100000, guid: 27b9064d590dc6b49a4be068ceedf8f3, type: 2}

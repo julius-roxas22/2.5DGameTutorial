@@ -13,12 +13,11 @@ namespace IndieGameDeveloper
         Attack,
     }
 
-
     public class CharacterControl : MonoBehaviour
     {
         private Rigidbody rBody;
         public Material material;
-        public Animator animator;
+        public Animator SkinnedMesh;
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
@@ -29,53 +28,92 @@ namespace IndieGameDeveloper
         public List<GameObject> BottomSphereList = new List<GameObject>();
         public float GravityMultiplier;
         public float PullMultiplier;
-        public List<Collider> RagdollParts = new List<Collider>();
+        public List<TriggerDetector> TriggerDetectors = new List<TriggerDetector>();
+        private RagdollWizzard ragdDollWizzard;
 
-        private void Awake()
+        public RagdollWizzard RAGDOLL_WIZZARD
         {
-            SetRagdollParts();
-            SetColliderSphere();
-        }
-
-        private void SetRagdollParts()
-        {
-            Collider[] colliders = GetComponentsInChildren<Collider>();
-
-            foreach (Collider col in colliders)
+            get
             {
-                if (col.gameObject != gameObject)
+                if (null == ragdDollWizzard)
                 {
-                    col.isTrigger = true;
-                    RagdollParts.Add(col);
+                    ragdDollWizzard = GetComponent<RagdollWizzard>();
                 }
+                return ragdDollWizzard;
             }
         }
 
-        //private IEnumerator Start()
-        //{
-        //    yield return new WaitForSeconds(5f);
-        //    GetRigidbody.AddForce(300f * Vector3.up);
-        //    yield return new WaitForSeconds(0.5f);
-        //    TurnOnRagdoll();
-        //}
+        private void Awake()
+        {
+            bool SwitchBack = false;
+
+            if (!IsFacingForward()) //check the character is facing forward at the world position
+            {
+                SwitchBack = true;
+            }
+
+            ResetRotationToFaceForward(true);
+
+            SetColliderSphere();
+
+            if (SwitchBack)
+            {
+                ResetRotationToFaceForward(false);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (GetRigidbody.velocity.y < 0f)
+            {
+                GetRigidbody.velocity -= (Vector3.up * GravityMultiplier);
+            }
+
+            if (GetRigidbody.velocity.y > 0f && !Jump)
+            {
+                GetRigidbody.velocity -= (Vector3.up * PullMultiplier);
+            }
+        }
+
+        public List<TriggerDetector> GetAllTriggers()
+        {
+            if (TriggerDetectors.Count == 0)
+            {
+                TriggerDetector[] Triggers = GetComponentsInChildren<TriggerDetector>();
+                foreach (TriggerDetector trigger in Triggers)
+                {
+                    TriggerDetectors.Add(trigger);
+                }
+            }
+            return TriggerDetectors;
+        }
 
         public void Move(float movementSpeed, float SpeedGraph)
         {
             transform.Translate(Vector3.forward * movementSpeed * SpeedGraph * Time.deltaTime);
         }
 
-        public void TurnOnRagdoll()
+        public bool IsFacingForward()
         {
-            GetComponent<BoxCollider>().enabled = false;
-            GetRigidbody.velocity = Vector3.zero;
-            GetRigidbody.useGravity = false;
-            animator.enabled = false;
-            animator.avatar = null;
-
-            foreach (Collider col in RagdollParts)
+            if (transform.forward.z > 0f)
             {
-                col.isTrigger = false;
-                col.attachedRigidbody.velocity = Vector3.zero;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void ResetRotationToFaceForward(bool IsFacingForward)
+        {
+            if (IsFacingForward)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
 
@@ -102,19 +140,6 @@ namespace IndieGameDeveloper
 
             float horizontalSection = (bottomBack.transform.position - bottomFrontSpheres.transform.position).magnitude / 5f;
             SphereEdge(bottomBack, Vector3.forward, horizontalSection, 4, BottomSphereList);
-        }
-
-        private void FixedUpdate()
-        {
-            if (GetRigidbody.velocity.y < 0f)
-            {
-                GetRigidbody.velocity -= (Vector3.up * GravityMultiplier);
-            }
-
-            if (GetRigidbody.velocity.y > 0f && !Jump)
-            {
-                GetRigidbody.velocity -= (Vector3.up * PullMultiplier);
-            }
         }
 
         private void SphereEdge(GameObject objStartPosition, Vector3 directions, float section, int iteration, List<GameObject> sphereList)

@@ -89,7 +89,7 @@ namespace IndieGameDeveloper
                 RaycastHit hit;
                 if (Physics.Raycast(obj.transform.position, obj.transform.forward, out hit, BlockDistance))
                 {
-                    if (!characterControl.RagdollParts.Contains(hit.collider))
+                    if (!characterControl.RAGDOLL_WIZZARD.RagdollParts.Contains(hit.collider))
                     {
                         if (!IsBodyPart(hit.collider))
                         {
@@ -115,7 +115,7 @@ namespace IndieGameDeveloper
                 return false;
             }
 
-            if (characterControl.RagdollParts.Contains(col))
+            if (characterControl.RAGDOLL_WIZZARD.RagdollParts.Contains(col))
             {
                 return true;
             }
