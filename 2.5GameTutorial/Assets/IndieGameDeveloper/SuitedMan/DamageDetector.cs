@@ -82,9 +82,9 @@ namespace IndieGameDeveloper
 
         public void TakeDamage(AttackInfo info)
         {
-            Debug.Log(info.Attacker.name + " hit " + characterControl.name);
-            Debug.Log(characterControl.name + " is hit being hit in " + BodyPart.ToString());
-            characterControl.SkinnedMesh.runtimeAnimatorController = info.AttackAbility.DeathAnimator();
+            //Debug.Log(info.Attacker.name + " hit " + characterControl.name);
+            //Debug.Log(characterControl.name + " is hit being hit in " + BodyPart.ToString());
+            characterControl.SkinnedMesh.runtimeAnimatorController = DeathAnimationManager.Instance.GetDeathAnimator(BodyPart);
             info.CurrentHits++;
             characterControl.GetComponent<BoxCollider>().enabled = false;
             characterControl.GetRigidbody.useGravity = false;

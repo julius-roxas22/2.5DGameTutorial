@@ -15,7 +15,6 @@ namespace IndieGameDeveloper
         public float AttackRange;
         public int Maxhits;
         public List<AttackInfo> FinishedAttacks = new List<AttackInfo>();
-        public List<RuntimeAnimatorController> DeathAnimations = new List<RuntimeAnimatorController>();
 
         public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
@@ -62,12 +61,6 @@ namespace IndieGameDeveloper
                     AttackManager.Instance.CurrentAttacks.Remove(info);
                 }
             }
-        }
-
-        public RuntimeAnimatorController DeathAnimator()
-        {
-            int index = Random.Range(0, DeathAnimations.Count);
-            return DeathAnimations[index];
         }
 
         public void RegisterAttack(CharacterControl characterControl, AnimatorStateInfo stateInfo)
