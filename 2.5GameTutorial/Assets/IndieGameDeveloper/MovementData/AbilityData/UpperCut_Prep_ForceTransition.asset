@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e111ecb8754659a4ca85bb2add79a320, type: 3}
-  m_Name: SoccerTackleDeathData
+  m_Script: {fileID: 11500000, guid: 1dad8c35f1ecf8d45be8cb37235e4a1d, type: 3}
+  m_Name: UpperCut_Prep_ForceTransition
   m_EditorClassIdentifier: 
-  BodyParts: 0100000003000000
-  DeathAnimatorController: {fileID: 9100000, guid: fc4025bbc37d71d478730b1772270fb4,
-    type: 2}
-  LaunchIntoAir: 0
-  IsFacingAttacker: 1
+  TransitionTiming: 0.8

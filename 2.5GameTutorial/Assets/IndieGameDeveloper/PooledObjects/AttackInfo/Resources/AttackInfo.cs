@@ -9,6 +9,7 @@ namespace IndieGameDeveloper
         public CharacterControl Attacker = null;
         public Attack AttackAbility;
         public List<string> CollingNames = new List<string>();
+        public bool LaunchIntoAir;
         public bool MustCollide;
         public bool IsFacingAttacker;
         public float AttackRange;
@@ -31,6 +32,7 @@ namespace IndieGameDeveloper
 
             AttackAbility = attack;
             CollingNames = attack.CollingNames;
+            LaunchIntoAir = attack.LaunchIntoAir;
             MustCollide = attack.MustCollide;
             IsFacingAttacker = attack.IsFacingAttacker;
             AttackRange = attack.AttackRange;

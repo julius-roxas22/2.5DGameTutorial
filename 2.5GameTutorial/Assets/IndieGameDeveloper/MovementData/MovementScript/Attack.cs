@@ -7,14 +7,16 @@ namespace IndieGameDeveloper
     [CreateAssetMenu(fileName = "Movement Ability", menuName = "IndieGameDev/New Ability/Attack")]
     public class Attack : ObjectBase
     {
+        //public bool debug;
         public float StartAttackTime;
         public float EndTimeAttack;
         public List<string> CollingNames = new List<string>();
+        public bool LaunchIntoAir;
         public bool MustCollide;
         public bool IsFacingAttacker;
         public float AttackRange;
         public int Maxhits;
-        public List<AttackInfo> FinishedAttacks = new List<AttackInfo>();
+        private List<AttackInfo> FinishedAttacks = new List<AttackInfo>();
 
         public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
@@ -35,11 +37,26 @@ namespace IndieGameDeveloper
         {
             RegisterAttack(characterControl, stateInfo);
             DeRegisteredAttack(stateInfo);
+            CheckCombo(stateInfo, characterControl, animator);
         }
 
         public override void OnExitAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
             ClearAttack();
+        }
+
+        private void CheckCombo(AnimatorStateInfo stateInfo, CharacterControl characterControl, Animator animator)
+        {
+            if (stateInfo.normalizedTime >= StartAttackTime + ((EndTimeAttack - StartAttackTime) / 3f))
+            {
+                if (stateInfo.normalizedTime < EndTimeAttack + ((EndTimeAttack - StartAttackTime) / 2f))
+                {
+                    if (characterControl.Attack)
+                    {
+                        animator.SetBool(TransitionParameter.Attack.ToString(), true);
+                    }
+                }
+            }
         }
 
         public void ClearAttack()
@@ -48,7 +65,7 @@ namespace IndieGameDeveloper
 
             foreach (AttackInfo info in AttackManager.Instance.CurrentAttacks)
             {
-                if (null == info || info.IsFinishedAttack)
+                if (null == info || this == info.AttackAbility)
                 {
                     FinishedAttacks.Add(info);
                 }
@@ -76,6 +93,11 @@ namespace IndieGameDeveloper
 
                     if (info.AttackAbility == this && !info.IsRegisteredAttack)
                     {
+                        //if (debug)
+                        //{
+                        //    Debug.Log(name + " registered " + stateInfo.normalizedTime);
+                        //}
+
                         info.RegisteredAttack(this);
                     }
                 }
@@ -97,6 +119,11 @@ namespace IndieGameDeveloper
                     {
                         info.IsFinishedAttack = true;
                         info.GetComponent<PoolObject>().TurnOff();
+
+                        //if (debug)
+                        //{
+                        //    Debug.Log(name + " registered " + stateInfo.normalizedTime);
+                        //}
                     }
                 }
             }

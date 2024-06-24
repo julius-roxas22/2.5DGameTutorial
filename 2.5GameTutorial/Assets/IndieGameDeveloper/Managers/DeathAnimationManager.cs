@@ -19,19 +19,29 @@ namespace IndieGameDeveloper
             }
         }
 
-        public RuntimeAnimatorController GetDeathAnimator(GeneralBodyParts generalBodyParts)
+        public RuntimeAnimatorController GetDeathAnimator(GeneralBodyParts generalBodyParts, AttackInfo info)
         {
             SetUpDeathAnimationLoader();
             Candidates.Clear();
 
             foreach (DeathAnimationData data in deathAnimationLoader.deathAnimationDatas)
             {
-                foreach (GeneralBodyParts body in data.BodyParts)
+                if (info.LaunchIntoAir)
                 {
-                    if (body == generalBodyParts)
+                    if (data.LaunchIntoAir)
                     {
-                        Candidates.Add(data.AnimatorController);
-                        break;
+                        Candidates.Add(data.DeathAnimatorController);
+                    }
+                }
+                else
+                {
+                    foreach (GeneralBodyParts body in data.BodyParts)
+                    {
+                        if (body == generalBodyParts)
+                        {
+                            Candidates.Add(data.DeathAnimatorController);
+                            break;
+                        }
                     }
                 }
             }

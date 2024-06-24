@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace IndieGameDeveloper
 {
-    [CreateAssetMenu(fileName = "Death Animation Data" , menuName = "IndieGameDev/DeathData/DeathAnimationData")]
+    [CreateAssetMenu(fileName = "Death Animation Data", menuName = "IndieGameDev/DeathData/DeathAnimationData")]
     public class DeathAnimationData : ScriptableObject
     {
         public List<GeneralBodyParts> BodyParts = new List<GeneralBodyParts>();
-        public RuntimeAnimatorController AnimatorController;
+        public RuntimeAnimatorController DeathAnimatorController;
+        public bool LaunchIntoAir;
         public bool IsFacingAttacker;
     }
 }

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: FallingBackDeathData
   m_EditorClassIdentifier: 
   BodyParts: 0000000002000000
-  AnimatorController: {fileID: 9100000, guid: 27b9064d590dc6b49a4be068ceedf8f3, type: 2}
+  DeathAnimatorController: {fileID: 9100000, guid: 27b9064d590dc6b49a4be068ceedf8f3,
+    type: 2}
+  LaunchIntoAir: 0
   IsFacingAttacker: 1

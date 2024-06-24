@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e111ecb8754659a4ca85bb2add79a320, type: 3}
-  m_Name: SoccerTackleDeathData
+  m_Name: UpperCutDeath
   m_EditorClassIdentifier: 
-  BodyParts: 0100000003000000
-  DeathAnimatorController: {fileID: 9100000, guid: fc4025bbc37d71d478730b1772270fb4,
+  BodyParts: 
+  DeathAnimatorController: {fileID: 9100000, guid: a9d85b7c694ba0d40a7865bb043539fc,
     type: 2}
-  LaunchIntoAir: 0
-  IsFacingAttacker: 1
+  LaunchIntoAir: 1
+  IsFacingAttacker: 0
