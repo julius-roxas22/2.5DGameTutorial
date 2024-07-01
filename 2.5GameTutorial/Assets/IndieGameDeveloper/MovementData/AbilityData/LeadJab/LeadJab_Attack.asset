@@ -16,9 +16,8 @@ MonoBehaviour:
   EndTimeAttack: 0.5
   CollingNames:
   - LeftHand
+  LaunchIntoAir: 0
   MustCollide: 1
   IsFacingAttacker: 1
   AttackRange: 0
   Maxhits: 1
-  DeathAnimations:
-  - {fileID: 9100000, guid: 27b9064d590dc6b49a4be068ceedf8f3, type: 2}

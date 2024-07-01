@@ -33,6 +33,17 @@ namespace IndieGameDeveloper
                         Candidates.Add(data.DeathAnimatorController);
                     }
                 }
+                if (!info.MustCollide)
+                {
+                    foreach (GeneralBodyParts body in data.BodyParts)
+                    {
+                        if (body == GeneralBodyParts.Lower || body == GeneralBodyParts.Leg)
+                        {
+                            Candidates.Add(data.DeathAnimatorController);
+                            break;
+                        }
+                    }
+                }
                 else
                 {
                     foreach (GeneralBodyParts body in data.BodyParts)

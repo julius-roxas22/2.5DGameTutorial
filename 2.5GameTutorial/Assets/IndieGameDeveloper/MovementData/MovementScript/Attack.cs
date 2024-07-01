@@ -42,6 +42,7 @@ namespace IndieGameDeveloper
 
         public override void OnExitAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
+            animator.SetBool(TransitionParameter.Attack.ToString(), false);
             ClearAttack();
         }
 

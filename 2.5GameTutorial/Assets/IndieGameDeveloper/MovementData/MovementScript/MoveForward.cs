@@ -22,6 +22,7 @@ namespace IndieGameDeveloper
 
             if (IsConstant)
             {
+
                 ConstantMove(characterControl, stateInfo);
             }
             else

@@ -58,6 +58,14 @@ namespace IndieGameDeveloper
                         TakeDamage(info);
                     }
                 }
+                else
+                {
+                    float distance = Vector3.SqrMagnitude(characterControl.transform.position - info.Attacker.transform.position);
+                    if (distance <= info.AttackRange)
+                    {
+                        TakeDamage(info);
+                    }
+                }
             }
         }
 
@@ -82,7 +90,10 @@ namespace IndieGameDeveloper
 
         public void TakeDamage(AttackInfo info)
         {
-            CameraManager.Instance.ShakeCamera(.35f);
+            if (info.MustCollide)
+            {
+                CameraManager.Instance.ShakeCamera(.35f);
+            }
             characterControl.SkinnedMesh.runtimeAnimatorController = DeathAnimationManager.Instance.GetDeathAnimator(BodyPart, info);
             info.CurrentHits++;
             characterControl.GetComponent<BoxCollider>().enabled = false;

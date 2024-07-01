@@ -10,27 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbab9955019db1a40a48ac3a74dff810, type: 3}
-  m_Name: UpperCut_Jump
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  JumpTiming: 0.2
-  jumpForce: 250
+  JumpTiming: 0
+  jumpForce: 350
   PullMultiplier:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 0.05
+      inSlope: 0.037598785
+      outSlope: 0.037598785
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.53193206
+      value: 0.07
+      inSlope: 0.16272178
+      outSlope: 0.16272178
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3362378
+    - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 1
+      inSlope: 1.986891
+      outSlope: 1.986891
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
