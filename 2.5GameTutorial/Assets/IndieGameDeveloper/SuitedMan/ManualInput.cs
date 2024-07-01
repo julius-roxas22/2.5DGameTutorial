@@ -14,6 +14,8 @@ namespace IndieGameDeveloper
 
         void Update()
         {
+            characterControl.MoveUp = VirtualInputManager.Instance.MoveUp ? true : false;
+            characterControl.MoveDown = VirtualInputManager.Instance.MoveDown ? true : false;
             characterControl.MoveRight = VirtualInputManager.Instance.MoveRight ? true : false;
             characterControl.MoveLeft = VirtualInputManager.Instance.MoveLeft ? true : false;
             characterControl.Jump = VirtualInputManager.Instance.Jump ? true : false;

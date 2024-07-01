@@ -11,13 +11,17 @@ namespace IndieGameDeveloper
         ForceTransition,
         Grounded,
         Attack,
+        TransitionIndex
     }
 
     public class CharacterControl : MonoBehaviour
     {
+        public CharacterType Character;
         private Rigidbody rBody;
         public Material material;
         public Animator SkinnedMesh;
+        public bool MoveUp;
+        public bool MoveDown;
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
@@ -30,6 +34,7 @@ namespace IndieGameDeveloper
         public float PullMultiplier;
         public List<TriggerDetector> TriggerDetectors = new List<TriggerDetector>();
         private RagdollWizzard ragdDollWizzard;
+        public LedgeChecker ledgeChecker;
 
         public RagdollWizzard RAGDOLL_WIZZARD
         {
@@ -60,6 +65,10 @@ namespace IndieGameDeveloper
             {
                 ResetRotationToFaceForward(false);
             }
+
+            ledgeChecker = GetComponentInChildren<LedgeChecker>();
+
+            CharacterManager.Instance.CharacterSetup();
         }
 
         private void FixedUpdate()
