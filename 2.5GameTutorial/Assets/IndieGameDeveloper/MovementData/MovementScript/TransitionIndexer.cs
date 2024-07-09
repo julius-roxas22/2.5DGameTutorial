@@ -35,6 +35,10 @@ namespace IndieGameDeveloper
             {
                 animator.SetInteger(TransitionParameter.TransitionIndex.ToString(), index);
             }
+            else
+            {
+                animator.SetInteger(TransitionParameter.TransitionIndex.ToString(), 0);
+            }
         }
 
         public override void OnExitAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
@@ -82,10 +86,18 @@ namespace IndieGameDeveloper
                         }
                     case TransitionIndexType.ATTACK:
                         {
+                            if (!characterControl.Attack)
+                            {
+                                return false;
+                            }
                             break;
                         }
                     case TransitionIndexType.JUMP:
                         {
+                            if (!characterControl.Jump)
+                            {
+                                return false;
+                            }
                             break;
                         }
                     case TransitionIndexType.GRABBING_LEDGE:

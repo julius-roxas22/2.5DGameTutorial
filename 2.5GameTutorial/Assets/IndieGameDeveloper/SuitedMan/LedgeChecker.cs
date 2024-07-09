@@ -6,7 +6,7 @@ namespace IndieGameDeveloper
 {
     public class LedgeChecker : MonoBehaviour
     {
-        public Ledge LedgeOffset;
+        public Ledge LedgeGrab;
         public bool IsGrabbing;
         private Ledge LedgeChecking;
         private void OnTriggerEnter(Collider col)
@@ -15,7 +15,7 @@ namespace IndieGameDeveloper
             if (null != LedgeChecking)
             {
                 IsGrabbing = true;
-                LedgeOffset = LedgeChecking;
+                LedgeGrab = LedgeChecking;
             }
         }
 

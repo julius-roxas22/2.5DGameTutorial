@@ -33,6 +33,7 @@ namespace IndieGameDeveloper
 
         private void ToggleBoxCol(CharacterControl characterControl)
         {
+            characterControl.GetRigidbody.velocity = Vector3.zero;
             characterControl.GetComponent<BoxCollider>().enabled = OnEnabled;
         }
     }

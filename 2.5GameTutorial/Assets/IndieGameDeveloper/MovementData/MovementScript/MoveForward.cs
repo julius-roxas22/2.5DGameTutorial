@@ -92,7 +92,7 @@ namespace IndieGameDeveloper
                 {
                     if (!characterControl.RAGDOLL_WIZZARD.RagdollParts.Contains(hit.collider))
                     {
-                        if (!IsBodyPart(hit.collider))
+                        if (!IsBodyPart(hit.collider) && !Ledge.IsLedge(hit.collider.gameObject))
                         {
                             return true;
                         }

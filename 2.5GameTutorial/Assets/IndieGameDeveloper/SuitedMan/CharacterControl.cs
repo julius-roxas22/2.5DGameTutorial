@@ -67,8 +67,7 @@ namespace IndieGameDeveloper
             }
 
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
-
-            CharacterManager.Instance.CharacterSetup();
+            SetUpCharacter();
         }
 
         private void FixedUpdate()
@@ -81,6 +80,13 @@ namespace IndieGameDeveloper
             if (GetRigidbody.velocity.y > 0f && !Jump)
             {
                 GetRigidbody.velocity -= (Vector3.up * PullMultiplier);
+            }
+        }
+        public void SetUpCharacter()
+        {
+            if (!CharacterManager.Instance.characterController.Contains(this))
+            {
+                CharacterManager.Instance.characterController.Add(this);
             }
         }
 

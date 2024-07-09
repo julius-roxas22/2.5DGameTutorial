@@ -53,7 +53,7 @@ namespace IndieGameDeveloper
                     RaycastHit hit;
                     if (Physics.Raycast(obj.transform.position, -Vector3.up, out hit, groundDistance))
                     {
-                        if (!characterControl.RAGDOLL_WIZZARD.RagdollParts.Contains(hit.collider))
+                        if (!characterControl.RAGDOLL_WIZZARD.RagdollParts.Contains(hit.collider) && !Ledge.IsLedge(hit.collider.gameObject))
                         {
                             return true;
                         }

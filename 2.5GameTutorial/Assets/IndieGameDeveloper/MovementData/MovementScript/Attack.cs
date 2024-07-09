@@ -48,9 +48,9 @@ namespace IndieGameDeveloper
 
         private void CheckCombo(AnimatorStateInfo stateInfo, CharacterControl characterControl, Animator animator)
         {
-            if (stateInfo.normalizedTime >= StartAttackTime + ((EndTimeAttack - StartAttackTime) / 3f))
+            if (stateInfo.normalizedTime >= StartAttackTime + ((EndTimeAttack - StartAttackTime) / 3f))// I don`t understand this line of code
             {
-                if (stateInfo.normalizedTime < EndTimeAttack + ((EndTimeAttack - StartAttackTime) / 2f))
+                if (stateInfo.normalizedTime < EndTimeAttack + ((EndTimeAttack - StartAttackTime) / 2f))// I don`t understand this line of code
                 {
                     if (characterControl.Attack)
                     {

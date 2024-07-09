@@ -9,7 +9,7 @@ namespace IndieGameDeveloper
     {
         public override void OnEnterAnimation(CharacterControl characterControl, Animator animator, AnimatorStateInfo stateInfo)
         {
-            Ledge GrabbedLedge = characterControl.ledgeChecker.LedgeOffset;
+            Ledge GrabbedLedge = characterControl.ledgeChecker.LedgeGrab;
             GameObject animObject = characterControl.SkinnedMesh.gameObject;
             animObject.transform.parent = GrabbedLedge.transform;
             animator.transform.localPosition = GrabbedLedge.Offset;

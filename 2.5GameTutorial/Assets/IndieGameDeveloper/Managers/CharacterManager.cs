@@ -8,18 +8,30 @@ namespace IndieGameDeveloper
     {
         SuitedMan,
     }
+
     public class CharacterManager : Singleton<CharacterManager>
     {
-        public List<CharacterType> CharacterTypes = new List<CharacterType>();
-        private CharacterControl characterControl;
+        public List<CharacterControl> characterController = new List<CharacterControl>();
 
-        public void CharacterSetup()
+        public CharacterControl GetCharacterControl(CharacterType type)
         {
-            characterControl = FindObjectOfType<CharacterControl>();
-            if (CharacterTypes.Count == 0)
+            foreach (CharacterControl character in characterController)
             {
-                CharacterTypes.Add(characterControl.Character);
+                if (character.Character == type)
+                    return character;
             }
+
+            return null;
+        }
+        public CharacterControl GetCharacterControl(Animator animator)
+        {
+            foreach (CharacterControl character in characterController)
+            {
+                if (character.SkinnedMesh == animator)
+                    return character;
+            }
+
+            return null;
         }
     }
 }
