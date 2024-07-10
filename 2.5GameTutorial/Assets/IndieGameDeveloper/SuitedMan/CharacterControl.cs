@@ -36,6 +36,8 @@ namespace IndieGameDeveloper
         private RagdollWizzard ragdDollWizzard;
         public LedgeChecker ledgeChecker;
 
+        private Dictionary<string, GameObject> dictionaries = new Dictionary<string, GameObject>();
+
         public RagdollWizzard RAGDOLL_WIZZARD
         {
             get
@@ -81,6 +83,26 @@ namespace IndieGameDeveloper
             {
                 GetRigidbody.velocity -= (Vector3.up * PullMultiplier);
             }
+        }
+
+        public GameObject GetChildObject(string name)
+        {
+            if (dictionaries.ContainsKey(name))
+            {
+                return dictionaries[name];
+            }
+
+            Transform[] arr = GetComponentsInChildren<Transform>();
+
+            foreach (Transform t in arr)
+            {
+                if (t.gameObject.name.Equals(name))
+                {
+                    dictionaries.Add(name, t.gameObject);
+                    return t.gameObject;
+                }
+            }
+            return null;
         }
         public void SetUpCharacter()
         {

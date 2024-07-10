@@ -7,6 +7,8 @@ namespace IndieGameDeveloper
     public enum PoolObjectType
     {
         ATTACKINFO,
+        THORHAMMER,
+        LARGEAXE,
     }
 
     public class PoolObjectLoader : MonoBehaviour
@@ -19,6 +21,16 @@ namespace IndieGameDeveloper
                 case PoolObjectType.ATTACKINFO:
                     {
                         obj = Instantiate(Resources.Load("AttackInfo", typeof(GameObject))) as GameObject;
+                        break;
+                    }
+                case PoolObjectType.THORHAMMER:
+                    {
+                        obj = Instantiate(Resources.Load("ThorHammer", typeof(GameObject))) as GameObject;
+                        break;
+                    }
+                case PoolObjectType.LARGEAXE:
+                    {
+                        obj = Instantiate(Resources.Load("Axe", typeof(GameObject))) as GameObject;
                         break;
                     }
             }

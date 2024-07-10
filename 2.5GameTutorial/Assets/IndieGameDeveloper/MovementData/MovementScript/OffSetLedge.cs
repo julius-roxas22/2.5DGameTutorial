@@ -12,7 +12,7 @@ namespace IndieGameDeveloper
             Ledge GrabbedLedge = characterControl.ledgeChecker.LedgeGrab;
             GameObject animObject = characterControl.SkinnedMesh.gameObject;
             animObject.transform.parent = GrabbedLedge.transform;
-            animator.transform.localPosition = GrabbedLedge.Offset;
+            animObject.transform.localPosition = GrabbedLedge.Offset;
             characterControl.GetRigidbody.velocity = Vector3.zero;
         }
 
